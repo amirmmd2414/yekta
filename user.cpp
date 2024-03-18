@@ -3,3 +3,12 @@
 //
 
 #include "user.h"
+
+Users :: Users(string fname,string lname,string id){
+ID = id;
+firstname = fname;
+lastname = lname;
+}
+Users::~Users(){
+    ;
+}

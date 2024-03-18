@@ -1,0 +1,3 @@
+C:/Users/Asus/yekta/cmake-build-debug/CMakeFiles/yekta.dir
+C:/Users/Asus/yekta/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Asus/yekta/cmake-build-debug/CMakeFiles/rebuild_cache.dir

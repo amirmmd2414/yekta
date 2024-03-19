@@ -7,24 +7,22 @@
 #include <iostream>
 using namespace std;
     class Users{
-    private:
-        string firstname;
-        string lastname;
-        string ID;
     public:
-    class teachers{
-        int EnterLeason();
-        int EnterGrades();
-        int AddStudent();
-        int DeleteStudent();
-    };
-    class student{
-        int ShowingGreades();
-    };
-    class admin{
-    //
-    };
-    Users(string fname,string lname,string id);
+        string Username;
     ~Users();
 };
+class student : public Users{
+    int ShowingGreades();
+};
+class teachers : public Users{
+    int EnterLeason();
+    int EnterGrades();
+    int AddStudent();
+    int DeleteStudent();
+};
+class admin : public Users{
+    //
+};
+
+void menu();
 #endif //YEKTA_USER_H

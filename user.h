@@ -23,6 +23,7 @@ class teachers : public Users{
 class admin : public Users{
     //
 };
-
+void wait();
+int login(string username,string role);
 void menu();
 #endif //YEKTA_USER_H

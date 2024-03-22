@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_yekta: phony || CMakeFiles/yekta.dir
 
 build CMakeFiles/yekta.dir/main.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:/Users/Asus/yekta/main.cpp || cmake_object_order_depends_target_yekta
   DEP_FILE = CMakeFiles\yekta.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++14
   INCLUDES = -IC:/Users/Asus/yekta/.
   OBJECT_DIR = CMakeFiles\yekta.dir
   OBJECT_FILE_DIR = CMakeFiles\yekta.dir
@@ -60,7 +60,7 @@ build CMakeFiles/yekta.dir/main.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:
 
 build CMakeFiles/yekta.dir/user.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:/Users/Asus/yekta/user.cpp || cmake_object_order_depends_target_yekta
   DEP_FILE = CMakeFiles\yekta.dir\user.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++14
   INCLUDES = -IC:/Users/Asus/yekta/.
   OBJECT_DIR = CMakeFiles\yekta.dir
   OBJECT_FILE_DIR = CMakeFiles\yekta.dir

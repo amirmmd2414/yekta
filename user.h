@@ -15,9 +15,10 @@ class student : public Users{
     int ShowingGreades();
 };
 class teachers : public Users{
-    int EnterLeason();
+public:
+    int AddLeason(string class_name);
     int EnterGrades();
-    int AddStudent();
+    int AddStudent(string str,string sad);
     int DeleteStudent();
 };
 class admin : public Users{

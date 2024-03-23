@@ -98,6 +98,30 @@ int login(string username,string role){
         }
     }
 }
+int teachers ::DeleteStudent(string student_name,string class_name){
+    ifstream file(class_name + ".txt");
+    string temp[100]; //100 is the maximum student in a class
+    int i = 0;
+    while(file >> temp[i]){
+        if(temp[i] == student_name){
+            continue;
+        }
+        i++;
+    }
+    file.close();
+    ofstream mnewfile(class_name + ".txt");
+    file.close();
+    fstream mynewfile(class_name+".txt",ios::app);
+    for(int j = 0;j<i;j++){
+        mynewfile << temp[j] << endl;
+    }
+    mynewfile.close();
+    cout << "Student " << student_name <<
+    " has been deleted from the class " <<
+    class_name << endl;
+    return 1;
+
+}
 int teachers ::AddStudent(std::string str, std::string sad) {
     fstream file;
     file.open(str+".txt",ios::app);
@@ -107,10 +131,22 @@ int teachers ::AddStudent(std::string str, std::string sad) {
          " is now on the class " << str << endl;
     return 1;
 }
+int teachers ::EnterGrades(std::string student_name, std::string class_name,string grade) {
+    fstream finalfileopeningfortoday(student_name+".txt",ios::app);
+    finalfileopeningfortoday << class_name << endl << grade << endl;
+    cout << "the grade has been entered " << endl;
+}
 void helper(){
     cout << "make an account : mkacc -s/-a/-t <username>"
-         << endl << "login : login -s/-a/-t <username>"
-         << endl << "" << endl;
+         << endl << endl
+         << "login : login -s/-a/-t <username>"
+         << endl << endl
+         << "make a class : tch add <classname>" <<
+         endl << endl <<
+         "add student to class : tch <student name> <class name>"
+         << endl << endl <<
+         "delete Student from a class :dlt <student name> <class name>" <<
+         endl << endl;
 }
 void menu() {
     bool Tlogin,Alogin,Slogin = false;
@@ -206,6 +242,67 @@ void menu() {
                     guy.AddStudent(sad,str);
                 }
             }
+        }
+        else if(operation == "dlt" && Tlogin == true){
+
+
+
+            cin >> str >> sad;
+            //str = name of the student    sad = name of the class
+            string temp;
+            teachers guy;
+            guy.Username = log_in_username;
+            int j = 0;
+            ifstream file(log_in_username+".txt");
+            while(file >> temp){
+                if(temp == sad){
+                    j = 1;
+                    break;
+                }
+            }
+            if(j != 1){
+                cout << "This class does not exist " << endl;
+                continue;
+            }
+            file.close();
+             if(check(str) == true){
+                cout << "This student does not exist" << endl;
+                continue;
+            }
+             int q = 0;
+             ifstream classname(sad+".txt");
+             while(classname >> temp){
+                 if(temp == str){
+                     q = 1;
+                     break;
+                 }
+             }
+             if(q == 0){
+                 cout << "This student is not in this class" << endl;
+                 continue;
+             }
+             guy.DeleteStudent(str,sad);
+        }
+        else if(operation == "grd" && Tlogin == true){
+            string temp;
+            string grade;
+            cin >> str >> sad >> grade;
+            int q = 0;
+            ifstream classnamee(sad+".txt");
+            while(classnamee >> temp){
+                if(temp == str){
+                    q = 1;
+                    break;
+                }
+            }
+            if(q == 0){
+                cout << "This student is not in this class" << endl;
+                continue;
+            }
+            classnamee.close();
+            teachers guy;
+            guy.Username = log_in_username;
+            guy.EnterGrades(str,sad,grade);
         }
         else if(operation == "/help"){
             helper();

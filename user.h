@@ -17,9 +17,9 @@ class student : public Users{
 class teachers : public Users{
 public:
     int AddLeason(string class_name);
-    int EnterGrades();
+    int EnterGrades(string student_name,string class_name,string grade);
     int AddStudent(string str,string sad);
-    int DeleteStudent();
+    int DeleteStudent(string student_name,string class_name);
 };
 class admin : public Users{
     //
@@ -27,4 +27,5 @@ class admin : public Users{
 void wait();
 int login(string username,string role);
 void menu();
+string arraying(string NameofTheFile);
 #endif //YEKTA_USER_H

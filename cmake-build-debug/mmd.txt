@@ -1,2 +1,2 @@
 teacher
-class1
+math_class

@@ -24,6 +24,7 @@ void wait(){
 int teachers:: AddLeason(string class_name){
     ofstream file(class_name+".txt");
     file.close();
+    return 1;
 }
 void write_users(string person){
     fstream Users;
@@ -131,10 +132,24 @@ int teachers ::AddStudent(std::string str, std::string sad) {
          " is now on the class " << str << endl;
     return 1;
 }
+string student :: ShowingGreades(string student_name,string class_name){
+    string temp;
+    ifstream file(student_name+".txt");
+    while(file >> temp){
+     if(temp == class_name){
+         file >> temp;
+         return temp;
+     }
+
+    }
+    return "notfound";
+
+}
 int teachers ::EnterGrades(std::string student_name, std::string class_name,string grade) {
     fstream finalfileopeningfortoday(student_name+".txt",ios::app);
     finalfileopeningfortoday << class_name << endl << grade << endl;
     cout << "the grade has been entered " << endl;
+    return 1;
 }
 void helper(){
     cout << "make an account : mkacc -s/-a/-t <username>"
@@ -146,6 +161,10 @@ void helper(){
          "add student to class : tch <student name> <class name>"
          << endl << endl <<
          "delete Student from a class :dlt <student name> <class name>" <<
+         endl << endl
+         << "Enter Grades : grd <student name> <class name> <grade>" <<
+         endl << endl
+         << "Show Grades : shw <class name>" <<
          endl << endl;
 }
 void menu() {
@@ -185,6 +204,17 @@ void menu() {
                     Alogin = true;
                 }
             }
+        }
+        else if(operation == "shw" && Slogin == true){
+            cin >> str;
+            student guy;
+            guy.Username = log_in_username;
+           if(guy.ShowingGreades(guy.Username,str) == "notfound"){
+               cout << "You have no grade for class " << str << endl;
+               continue;
+           }
+           cout << "your grade for " << str << " is :" <<guy.ShowingGreades(guy.Username,str)
+            << endl;
         }
         else if(operation == "tch" && Tlogin == true){
             cin >> str >> sad;

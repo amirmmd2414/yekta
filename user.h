@@ -12,7 +12,8 @@ using namespace std;
     ~Users();
 };
 class student : public Users{
-    int ShowingGreades();
+public:
+    string ShowingGreades(string student_name,string class_name);
 };
 class teachers : public Users{
 public:

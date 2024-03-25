@@ -1,3 +1,0 @@
-student
-math_class
-18

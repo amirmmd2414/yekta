@@ -20,7 +20,12 @@ void wait(){
         Sleep(1000);
     }
 }
+teachers :: ~teachers(){
 
+}
+student :: ~student(){
+
+}
 int teachers:: AddLeason(string class_name){
     ofstream file(class_name+".txt");
     file.close();
@@ -99,6 +104,31 @@ int login(string username,string role){
         }
     }
 }
+bool CheckIfIsDeleted(string username){
+    ifstream file("soft_delete.txt");
+    string temp;
+    while(file >> temp){
+        if(temp == username){
+            return false;
+        }
+    }
+    return true;
+}
+int admin::softdelete(string username) {
+    ifstream isitadmin(username + ".txt");
+    string role;
+    isitadmin >> role;
+    if(role == "admin"){
+        cout <<"admins can not be deleted" << endl;
+        return 1;
+    }
+    fstream file;
+    file.open("soft_delete.txt",ios ::app);
+    file << username << endl;
+    file.close();
+    cout << "User " << username << " is deleted" << endl;
+    return 1;
+}
 int teachers ::DeleteStudent(string student_name,string class_name){
     ifstream file(class_name + ".txt");
     string temp[100]; //100 is the maximum student in a class
@@ -167,6 +197,31 @@ void helper(){
          << "Show Grades : shw <class name>" <<
          endl << endl;
 }
+int admin ::restore(std::string username){
+
+    ifstream file("soft_delete.txt");
+    string temp[100]; //100 is the maximum users in  soft delete
+    int i = 0;
+    while(file >> temp[i]){
+        if(temp[i] == username){
+            continue;
+        }
+        i++;
+    }
+    file.close();
+    ofstream mnewfile("soft_delete.txt");
+    file.close();
+    fstream mynewfile("soft_delete.txt",ios::app);
+    for(int j = 0;j<i;j++){
+        mynewfile << temp[j] << endl;
+    }
+    mynewfile.close();
+    cout << "User " << username <<
+         " has been restored "<< endl;
+
+
+    return 1;
+}
 void menu() {
     bool Tlogin,Alogin,Slogin = false;
     string operation;
@@ -176,7 +231,7 @@ void menu() {
     string str;
     while(1) {
         cin >> operation;
-        if (operation == "mkacc") {
+        if (operation == "mkacc" && Alogin == true) {
             cin >> str
                 >> username;
             if(check(username) == false){
@@ -188,6 +243,10 @@ void menu() {
             cin >> str
                 >> username;
             if(str=="-s"||str=="-a"||str=="-t"){
+                if(CheckIfIsDeleted(username) == false){
+                    cout << "This user does not exist" << endl;
+                    continue;
+                }
                 int answer= login(username,str) ;
                 if(answer== 1){
                     continue;
@@ -204,6 +263,30 @@ void menu() {
                     Alogin = true;
                 }
             }
+        }
+        else if(operation == "delete" && Alogin == true){
+            string ss;
+            cin >> ss;
+            if(CheckIfIsDeleted(ss) == false || check(ss) == true){
+                cout << "This user does not exist" << endl;
+                continue;
+            }
+            admin guy;
+            guy.Username = log_in_username;
+            guy.softdelete(ss);
+            continue;
+        }
+        else if(operation == "restore" && Alogin == true){
+            string ss;
+            cin >> ss;
+            admin guy;
+            guy.Username = log_in_username;
+            if(CheckIfIsDeleted(ss) == true){
+                cout << "This User Can not be restored" << endl;
+                continue;
+            }
+            guy.restore(ss);
+            continue;
         }
         else if(operation == "shw" && Slogin == true){
             cin >> str;
@@ -247,6 +330,10 @@ void menu() {
                 int i =0;
                 string temp;
                 file >> temp;
+                if(CheckIfIsDeleted(str) == false){
+                    cout <<"This user does not exist anymore" << endl;
+                    continue;
+                }
                 if(temp != "student"){
                     cout << "This user is not a student" << endl;
                     continue;
@@ -278,7 +365,7 @@ void menu() {
 
 
             cin >> str >> sad;
-            //str = name of the student    sad = name of the class
+            //str = name of the student    sad = name of the classo 
             string temp;
             teachers guy;
             guy.Username = log_in_username;
@@ -325,7 +412,7 @@ void menu() {
                     break;
                 }
             }
-            if(q == 0){
+            if(q == 0 || CheckIfIsDeleted(str) == false){
                 cout << "This student is not in this class" << endl;
                 continue;
             }
@@ -337,6 +424,9 @@ void menu() {
         else if(operation == "/help"){
             helper();
         }
+        else if(operation == "exit"){
+            break;
+        }
         else {
             cout <<
                  "This Command does not exits"
@@ -344,4 +434,5 @@ void menu() {
                  << endl;
         }
     }
+    return ;
 }

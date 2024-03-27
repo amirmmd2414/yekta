@@ -9,6 +9,10 @@ using namespace std;
     class Users{
     public:
         string Username;
+        string firstname;
+        string lastname;
+        string phonenumber;
+        string password;
     ~Users();
 };
 class student : public Users{

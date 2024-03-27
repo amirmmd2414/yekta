@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_yekta: phony || CMakeFiles/yekta.dir
 
 build CMakeFiles/yekta.dir/main.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:/Users/Asus/yekta/main.cpp || cmake_object_order_depends_target_yekta
   DEP_FILE = CMakeFiles\yekta.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/Asus/yekta/.
   OBJECT_DIR = CMakeFiles\yekta.dir
   OBJECT_FILE_DIR = CMakeFiles\yekta.dir
@@ -60,7 +60,16 @@ build CMakeFiles/yekta.dir/main.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:
 
 build CMakeFiles/yekta.dir/user.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:/Users/Asus/yekta/user.cpp || cmake_object_order_depends_target_yekta
   DEP_FILE = CMakeFiles\yekta.dir\user.cpp.obj.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Asus/yekta/.
+  OBJECT_DIR = CMakeFiles\yekta.dir
+  OBJECT_FILE_DIR = CMakeFiles\yekta.dir
+  TARGET_COMPILE_PDB = CMakeFiles\yekta.dir\
+  TARGET_PDB = yekta.pdb
+
+build CMakeFiles/yekta.dir/new.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:/Users/Asus/yekta/new.cpp || cmake_object_order_depends_target_yekta
+  DEP_FILE = CMakeFiles\yekta.dir\new.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/Asus/yekta/.
   OBJECT_DIR = CMakeFiles\yekta.dir
   OBJECT_FILE_DIR = CMakeFiles\yekta.dir
@@ -75,7 +84,7 @@ build CMakeFiles/yekta.dir/user.cpp.obj: CXX_COMPILER__yekta_unscanned_Debug C$:
 #############################################
 # Link the executable yekta.exe
 
-build yekta.exe: CXX_EXECUTABLE_LINKER__yekta_Debug CMakeFiles/yekta.dir/main.cpp.obj CMakeFiles/yekta.dir/user.cpp.obj
+build yekta.exe: CXX_EXECUTABLE_LINKER__yekta_Debug CMakeFiles/yekta.dir/main.cpp.obj CMakeFiles/yekta.dir/user.cpp.obj CMakeFiles/yekta.dir/new.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\yekta.dir

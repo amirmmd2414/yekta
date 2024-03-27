@@ -5,6 +5,7 @@
 #include "windows.h"
 #include <iostream>
 #include <fstream>
+#include "new.h"
 using namespace std;
 Users::~Users(){
     ;
@@ -50,27 +51,30 @@ bool check(string username){
     Users.close();
     return true;
 }
-void make_something(string str, string username){
+void make_something(string str, string username,string password){
     if (str == "-s") {
         ofstream file(username+".txt");
-        file << "student" << endl;
+        file << "student" << endl
+                << "+++"+password+"+++" << endl;
         file.close();
         write_users(username);
     } else if (str == "-a") {
         ofstream file(username+".txt");
-        file << "admin" << endl;
+        file << "admin" << endl
+                << "+++"+password+"+++" << endl;
         write_users(username);
         file.close();
     } else if (str == "-t") {
         ofstream file(username+".txt");
-        file << "teacher" << endl;
+        file << "teacher" << endl
+                << "+++"+password+"+++" << endl;
         write_users(username);
         file.close();
     } else {
         cout << "This Role does not exist" << endl;
     }
 }
-int login(string username,string role){
+int login(string username,string role,string password){
     if(role == "-s"){
         role = "student";
     }
@@ -86,9 +90,14 @@ int login(string username,string role){
     }
     string temp;
     ifstream file(username+".txt");
-    file >> temp;
+    string p;
+    file >> temp >>p;
     if(temp != role){
         cout << "This user is not " << role << "!" << endl;
+        return 1;
+    }
+    else if("+++"+password+"+++" != p){
+        cout << "wrong password" << endl;
         return 1;
     }
     else{
@@ -182,9 +191,9 @@ int teachers ::EnterGrades(std::string student_name, std::string class_name,stri
     return 1;
 }
 void helper(){
-    cout << "make an account : mkacc -s/-a/-t <username>"
+    cout << "make an account : mkacc -s/-a/-t <username> <password>"
          << endl << endl
-         << "login : login -s/-a/-t <username>"
+         << "login : login -s/-a/-t <username> <password>"
          << endl << endl
          << "make a class : tch add <classname>" <<
          endl << endl <<
@@ -195,7 +204,13 @@ void helper(){
          << "Enter Grades : grd <student name> <class name> <grade>" <<
          endl << endl
          << "Show Grades : shw <class name>" <<
-         endl << endl;
+         endl << endl
+         << "delete user : delete <username>" <<
+         endl << endl
+         << "restore user : restore <username>"<<
+         endl << endl
+         << "complete profile : cmp <username> <first name> <last name> <phone number>"
+         << endl << endl;
 }
 int admin ::restore(std::string username){
 
@@ -229,25 +244,31 @@ void menu() {
     string log_in_username;
     string sad;
     string str;
+    string password;
     while(1) {
         cin >> operation;
         if (operation == "mkacc" && Alogin == true) {
             cin >> str
-                >> username;
+                >> username >> password;
             if(check(username) == false){
                 cout << "this username does exist" << endl;
                 continue;
             }
-            make_something(str,username);
-        } else if (operation == "login") {
+            else if(checkifisenglish(username) == false){
+                cout << "username should be in english" << endl;
+                continue;
+            }
+            make_something(str,username,password);
+        }
+        else if (operation == "login") {
             cin >> str
-                >> username;
+                >> username >> password;
             if(str=="-s"||str=="-a"||str=="-t"){
                 if(CheckIfIsDeleted(username) == false){
                     cout << "This user does not exist" << endl;
                     continue;
                 }
-                int answer= login(username,str) ;
+                int answer= login(username,str,password) ;
                 if(answer== 1){
                     continue;
                 }
@@ -321,7 +342,7 @@ void menu() {
                 file.close();
                 fstream myfile;
                 myfile.open(log_in_username+".txt",ios::app);
-            myfile << sad;
+            myfile << sad << endl;
            myfile.close();
             guy.AddLeason(sad);
             }
@@ -358,6 +379,40 @@ void menu() {
                 else{
                     guy.AddStudent(sad,str);
                 }
+            }
+        }
+        else if(operation == "cmp" && Alogin == true){
+            cin >> str;
+            if(check(str) == true){
+                cout << "This user does not exist" << endl;
+                continue;
+            }
+            else if(isprofilecomplete(str)){
+                cout << "This user has a complete profile" << endl;
+                continue;
+            }
+            ifstream file(str+".txt");
+            string temp;
+            file >> temp;
+            if(temp == "student"){
+                student user;
+                user.Username = str;
+                cin >> user.firstname >>
+                user.lastname >> user.phonenumber;
+                complete_profile(user);
+                continue;
+            }
+            else if(temp == "teacher"){
+                teachers user;
+                user.Username = str;
+                cin >> user.firstname >>
+                    user.lastname >> user.phonenumber;
+                    complete_profile(user);
+                continue;
+            }
+            else{
+                cout << "This user is an admin!!!" << endl;
+                continue;
             }
         }
         else if(operation == "dlt" && Tlogin == true){

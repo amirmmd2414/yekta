@@ -8,4 +8,6 @@ include_directories(.)
 add_executable(yekta
         main.cpp
         user.cpp
-        user.h)
+        user.h
+        new.cpp
+        new.h)

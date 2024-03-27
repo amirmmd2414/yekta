@@ -56,3 +56,65 @@ int complete_profile(teachers user){
     return 1;
 
 }
+int update(student user){
+    ifstream file(user.Username + ".txt");
+    string temp[100];
+    int j;
+    string more;
+    for(int i = 0;;){
+        if(file >> temp[i]){
+            ;
+        }
+        else{
+            break;
+        }
+         if(temp[i][0] == '*'){
+            temp[i] = "*"+user.firstname;
+            file >> more;
+            temp[i+1] = user.lastname;
+            file >> more;
+            temp[i+2] = user.phonenumber;
+            i+=2;
+        }
+        i++;
+    j = i;
+    }
+    file.close();
+    ofstream myfile(user.Username+".txt");
+    for(int i = 0;i<=j;i++){
+        myfile << temp[i] << endl;
+    }
+    cout << "Your profile is updated" << endl;
+    return 1;
+}
+int update(teachers user){
+    ifstream file(user.Username + ".txt");
+    string temp[100];
+    int j;
+    string more;
+    for(int i = 0;;){
+        if(file >> temp[i]){
+            ;
+        }
+        else{
+            break;
+        }
+        if(temp[i][0] == '*'){
+            temp[i] = "*"+user.firstname;
+            file >> more;
+            temp[i+1] = user.lastname;
+            file >> more;
+            temp[i+2] = user.phonenumber;
+            i+=2;
+        }
+        i++;
+        j = i;
+    }
+    file.close();
+    ofstream myfile(user.Username+".txt");
+    for(int i = 0;i<=j;i++){
+        myfile << temp[i] << endl;
+    }
+    cout << "Your profile is updated" << endl;
+    return 1;
+}

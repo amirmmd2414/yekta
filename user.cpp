@@ -209,7 +209,11 @@ void helper(){
          endl << endl
          << "restore user : restore <username>"<<
          endl << endl
-         << "complete profile : cmp <username> <first name> <last name> <phone number>"
+         << "complete profile : complete <username> <first name> <last name> <phone number>"
+         << endl << endl
+         << "update profile : update <username> <first name> <last name > <phone number>"
+         << endl << endl
+         << "show profile : show <username>"
          << endl << endl;
 }
 int admin ::restore(std::string username){
@@ -309,6 +313,43 @@ void menu() {
             guy.restore(ss);
             continue;
         }
+        else if(operation == "update" && Alogin == true){
+            string user_name;
+            cin >> user_name;
+            if(isprofilecomplete(user_name) == false){
+                cout << "This user does not have a profile yet" << endl;
+                continue;
+            }
+            else if(check(user_name)){
+                cout << "This user does not exist" << endl;
+                continue;
+            }
+            string temp;
+            ifstream file(user_name + ".txt");
+            file >> temp;
+
+            if(temp == "student"){
+                student someone;
+                someone.Username = user_name;
+                cin >> someone.firstname >> someone.lastname >> someone.phonenumber;
+                update(someone);
+                cout << "This file updated successfully" << endl;
+                continue;
+            }
+            else if(temp == "teacher"){
+                teachers someone;
+                someone.Username = user_name;
+                cin >> someone.firstname >> someone.lastname >> someone.phonenumber;
+                update(someone);
+                cout << "This file updated successfully" << endl;
+
+                continue;
+            }
+            else{
+                cout << "This username is a admin!!!" << endl;
+                continue;
+            }
+        }
         else if(operation == "shw" && Slogin == true){
             cin >> str;
             student guy;
@@ -381,7 +422,7 @@ void menu() {
                 }
             }
         }
-        else if(operation == "cmp" && Alogin == true){
+        else if(operation == "complete" && Alogin == true){
             cin >> str;
             if(check(str) == true){
                 cout << "This user does not exist" << endl;

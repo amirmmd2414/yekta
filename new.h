@@ -9,5 +9,8 @@ bool isprofilecomplete(string username);
 int complete_profile(student user);
 int complete_profile(teachers user);
 bool checkifisenglish(string word);
+int update(student user);
+int update(teachers user);
 
 #endif //YEKTA_NEW_H
+//doing update function right now

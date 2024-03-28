@@ -32,6 +32,7 @@ class admin : public Users{
 public :
     int softdelete(string username);
     int restore(string username);
+    int read(string username);
 };
 void wait();
 int login(string username,string role);

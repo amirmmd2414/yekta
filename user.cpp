@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include "new.h"
+#include <string>
 using namespace std;
 Users::~Users(){
     ;
@@ -162,6 +163,24 @@ int teachers ::DeleteStudent(string student_name,string class_name){
     return 1;
 
 }
+int admin ::read(std::string username) {
+    ifstream file(username+".txt");
+    string temp;
+    while(file >> temp){
+        if(temp[0] == '*'){
+            cout << endl << "First name : " << temp.substr(1,temp.length()) << endl;
+            file >> temp;
+            cout << "Last name : " << temp << endl;
+            file >> temp;
+            cout << "Phone number : " << temp << endl << endl;
+            break;
+        }
+    }
+    file.close();
+
+    return 1;
+
+}
 int teachers ::AddStudent(std::string str, std::string sad) {
     fstream file;
     file.open(str+".txt",ios::app);
@@ -182,7 +201,6 @@ string student :: ShowingGreades(string student_name,string class_name){
 
     }
     return "notfound";
-
 }
 int teachers ::EnterGrades(std::string student_name, std::string class_name,string grade) {
     fstream finalfileopeningfortoday(student_name+".txt",ios::app);
@@ -350,6 +368,32 @@ void menu() {
                 continue;
             }
         }
+        else if(operation == "show" && Alogin == true){
+
+            string temp;
+            cin >> temp;
+            if(isprofilecomplete(temp) == false){
+                cout << "The profile for this user in not complete " << endl;
+                continue;
+            }
+            else if(check(temp) == true){
+                cout << "This user does not exist" << endl;
+                continue;
+            }
+             ifstream file(temp+".txt");
+            string temp2;
+            file >> temp2;
+            file.close();
+            if(temp2 == "admin"){
+                cout << "This user is an admin!!!" << endl;
+                continue;
+            }
+            else{
+                admin Admin;
+                Admin.read(temp);
+                continue;
+            }
+        }
         else if(operation == "shw" && Slogin == true){
             cin >> str;
             student guy;
@@ -362,7 +406,7 @@ void menu() {
             << endl;
         }
         else if(operation == "tch" && Tlogin == true){
-            cin >> str >> sad;
+            cin  >> str >> sad;
             teachers guy;
             guy.Username = log_in_username;
             if(str == "add"){

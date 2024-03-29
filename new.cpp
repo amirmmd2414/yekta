@@ -117,4 +117,14 @@ int update(teachers user){
     }
     cout << "Your profile is updated" << endl;
     return 1;
+
+    }
+void show_class(string ClassName){
+    ifstream file(ClassName+".txt");
+    string temp;
+    cout << "members of class : " << endl;
+    while(file >> temp){
+        cout << temp << endl;
+    }
+    return;
 }

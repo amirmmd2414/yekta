@@ -232,7 +232,8 @@ void helper(){
          << "update profile : update <username> <first name> <last name > <phone number>"
          << endl << endl
          << "show profile : show <username>"
-         << endl << endl;
+         << endl << endl
+         << "show class members : show_cl <class name>";
 }
 int admin ::restore(std::string username){
 
@@ -329,6 +330,25 @@ void menu() {
                 continue;
             }
             guy.restore(ss);
+            continue;
+        }
+        else if(operation == "show_cl" && Tlogin == true){
+            string classname;
+            string temp;
+            cin >> classname;
+            ifstream file(log_in_username+".txt");
+            int doesThisClassExist = 0;
+            while(file >> temp){
+                if(temp == classname){
+                    doesThisClassExist = 1;
+                    break;
+                }
+            }
+            if(doesThisClassExist == 0){
+                cout << "This class does not exist" << endl;
+                continue;
+            }
+            show_class(classname);
             continue;
         }
         else if(operation == "update" && Alogin == true){
@@ -461,9 +481,19 @@ void menu() {
                     cout << "This student does not exist" << endl;
                     continue;
                 }
-                else{
-                    guy.AddStudent(sad,str);
+                ifstream khasteshodam(sad+".txt");
+                int jj = 0;
+                while(khasteshodam>>temp){
+                    if(temp == str){
+                        jj = 1;
+                    }
                 }
+                if(jj==1){
+                    cout << "This student is in this class" << endl;
+                    continue;
+                }
+                    guy.AddStudent(sad,str);
+
             }
         }
         else if(operation == "complete" && Alogin == true){

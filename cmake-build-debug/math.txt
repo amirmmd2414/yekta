@@ -1,5 +1,3 @@
-Admin
-mmd
 amir
 ali
 javad

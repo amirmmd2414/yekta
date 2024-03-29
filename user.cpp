@@ -9,7 +9,7 @@
 #include <string>
 using namespace std;
 Users::~Users(){
-    ;
+
 }
 void makeallfalse(bool& b1,bool& b2, bool& b3){
     b1 = false;
@@ -233,7 +233,8 @@ void helper(){
          << endl << endl
          << "show profile : show <username>"
          << endl << endl
-         << "show class members : show_cl <class name>";
+         << "show class members : show_cl <class name>"
+         << endl << endl;
 }
 int admin ::restore(std::string username){
 
@@ -281,7 +282,11 @@ void menu() {
                 cout << "username should be in english" << endl;
                 continue;
             }
+            else if(passwordcheckk(password,username) == false){
+                cout << "Weak Password" << endl;
+            }
             make_something(str,username,password);
+            cout << "new account hsa been created " << endl;
         }
         else if (operation == "login") {
             cin >> str
@@ -358,7 +363,7 @@ void menu() {
                 cout << "This user does not have a profile yet" << endl;
                 continue;
             }
-            else if(check(user_name)){
+            else if(check(user_name) || CheckIfIsDeleted(user_name) == false){
                 cout << "This user does not exist" << endl;
                 continue;
             }
@@ -396,7 +401,7 @@ void menu() {
                 cout << "The profile for this user in not complete " << endl;
                 continue;
             }
-            else if(check(temp) == true){
+            else if(check(temp) == true || CheckIfIsDeleted(temp) == false){
                 cout << "This user does not exist" << endl;
                 continue;
             }
@@ -498,7 +503,7 @@ void menu() {
         }
         else if(operation == "complete" && Alogin == true){
             cin >> str;
-            if(check(str) == true){
+            if(check(str) == true || CheckIfIsDeleted(str) == false){
                 cout << "This user does not exist" << endl;
                 continue;
             }

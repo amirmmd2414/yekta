@@ -128,3 +128,16 @@ void show_class(string ClassName){
     }
     return;
 }
+bool passwordcheckk(string str,string name) {
+    if (str.length() <= 6 || str.length() >= 21) {
+        return false;
+    }
+    for (int i = 0; i < name.length() - 2; i++) {
+        for (int j = 4; j < name.length() - i; i++) {
+            if (str.find(name.substr(i, j)) != string::npos) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

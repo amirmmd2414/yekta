@@ -12,5 +12,6 @@ bool checkifisenglish(string word);
 int update(student user);
 int update(teachers user);
 void show_class(string ClassName);
+bool passwordcheckk(string str,string name);
 #endif //YEKTA_NEW_H
 //doing update function right now

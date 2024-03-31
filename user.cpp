@@ -7,6 +7,7 @@
 #include <fstream>
 #include "new.h"
 #include <string>
+#include <shellapi.h>
 using namespace std;
 Users::~Users(){
 
@@ -51,6 +52,14 @@ bool check(string username){
     }
     Users.close();
     return true;
+}
+int student :: sendassignment(string assignment,string username,string classname){
+    fstream file;
+    file.open(username + ".txt" , ios :: app);
+    file << "//" + classname + '-' + assignment << endl;
+    file.close();
+    cout << "The assignment has been sent" << endl;
+    return 1;
 }
 void make_something(string str, string username,string password){
     if (str == "-s") {
@@ -181,6 +190,26 @@ int admin ::read(std::string username) {
     return 1;
 
 }
+int teachers :: seeassignment(string student_username,string classname){
+    ifstream file(student_username + ".txt");
+    string temp;
+    int i = 0;
+    int length = classname.length();
+    while(file >> temp){
+        if(temp[0] == '/' && temp[1] == '/'&& temp.substr(2,length) == classname){
+            i = 1;
+            break;
+        }
+    }
+    if(i == 0){
+        cout << "This student has no assignment" << endl;
+        return 1;
+    }
+    file >> temp;
+    cout << student_username << " assignment :" <<
+    endl << endl << temp << endl << endl;
+    return 1;
+}
 int teachers ::AddStudent(std::string str, std::string sad) {
     fstream file;
     file.open(str+".txt",ios::app);
@@ -190,7 +219,7 @@ int teachers ::AddStudent(std::string str, std::string sad) {
          " is now on the class " << str << endl;
     return 1;
 }
-string student :: ShowingGreades(string student_name,string class_name){
+ string student :: ShowingGreades(string student_name,string class_name){
     string temp;
     ifstream file(student_name+".txt");
     while(file >> temp){
@@ -219,6 +248,10 @@ void helper(){
          << endl << endl <<
          "delete Student from a class :dlt <student name> <class name>" <<
          endl << endl
+         << "Send assignment : send <class name> <assignment>" //
+         << endl << endl
+         << "See assignment : see <student username> <class name>"
+         << endl << endl
          << "Enter Grades : grd <student name> <class name> <grade>" <<
          endl << endl
          << "Show Grades : shw <class name>" <<
@@ -234,6 +267,8 @@ void helper(){
          << "show profile : show <username>"
          << endl << endl
          << "show class members : show_cl <class name>"
+         << endl << endl
+         << "go to real site : real"
          << endl << endl;
 }
 int admin ::restore(std::string username){
@@ -312,6 +347,23 @@ void menu() {
                     Alogin = true;
                 }
             }
+        }
+        else if(operation == "see" && Tlogin == true){
+            string usernameusername;
+            string classnameclassname;
+            cin >> usernameusername >> classnameclassname;
+            if(CheckIfIsDeleted(usernameusername) == false || check(usernameusername) == true){
+                cout << "This user does not exist" << endl;
+                continue;
+            }
+            teachers userrr;
+            userrr.seeassignment(usernameusername,classnameclassname);
+            continue;
+        }
+        else if(operation == "real"){
+            ShellExecuteA(NULL,"open","https://webauth.iut.ac.ir/cas/login?service=https%3A%2F%2Flogin.iut.ac.ir%2Flogin%2Fcas",NULL,NULL,SW_SHOWNORMAL);
+            cout << "You entered the real site of YEKTA" << endl;
+            continue;
         }
         else if(operation == "delete" && Alogin == true){
             string ss;
@@ -419,6 +471,28 @@ void menu() {
                 continue;
             }
         }
+        else if(operation == "send" && Slogin == true){
+            string class__name;
+            string assignment;
+            cin >> class__name;
+            getline(cin,assignment);
+            ifstream file(class__name+".txt");
+            string temp;
+            int wtf = 0;
+            while(file >> temp){
+                if(temp == log_in_username){
+                    wtf = 1;
+                    break;
+                }
+            }
+            if(wtf == 0){
+                cout << "This class does not exist" << endl;
+                continue;
+            }
+            student someone;
+            someone.Username = log_in_username;
+            someone.sendassignment(assignment,log_in_username,class__name);
+        }
         else if(operation == "shw" && Slogin == true){
             cin >> str;
             student guy;
@@ -430,7 +504,7 @@ void menu() {
            cout << "your grade for " << str << " is :" <<guy.ShowingGreades(guy.Username,str)
             << endl;
         }
-        else if(operation == "tch" && Tlogin == true){
+        else if(operation == "tch" &&   Tlogin == true){
             cin  >> str >> sad;
             teachers guy;
             guy.Username = log_in_username;

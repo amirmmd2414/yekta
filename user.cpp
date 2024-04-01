@@ -197,17 +197,15 @@ int teachers :: seeassignment(string student_username,string classname){
     int length = classname.length();
     while(file >> temp){
         if(temp[0] == '/' && temp[1] == '/'&& temp.substr(2,length) == classname){
-            i = 1;
-            break;
+            i++;
+            cout << student_username << " assignment" << i << " :" <<
+                 endl << endl << temp << endl << endl;
         }
     }
     if(i == 0){
         cout << "This student has no assignment" << endl;
         return 1;
     }
-    file >> temp;
-    cout << student_username << " assignment :" <<
-    endl << endl << temp << endl << endl;
     return 1;
 }
 int teachers ::AddStudent(std::string str, std::string sad) {
@@ -221,16 +219,21 @@ int teachers ::AddStudent(std::string str, std::string sad) {
 }
  string student :: ShowingGreades(string student_name,string class_name){
     string temp;
+    int i = 0;
     ifstream file(student_name+".txt");
     while(file >> temp){
      if(temp == class_name){
+         i++;
          file >> temp;
-         return temp;
+         cout << " grade " << i << " :" << temp << endl;
      }
 
     }
-    return "notfound";
-}
+    if(i == 0) {
+        return "notfound";
+    }
+    return "success";
+    }
 int teachers ::EnterGrades(std::string student_name, std::string class_name,string grade) {
     fstream finalfileopeningfortoday(student_name+".txt",ios::app);
     finalfileopeningfortoday << class_name << endl << grade << endl;
@@ -474,8 +477,7 @@ void menu() {
         else if(operation == "send" && Slogin == true){
             string class__name;
             string assignment;
-            cin >> class__name;
-            getline(cin,assignment);
+            cin >> class__name>>assignment;
             ifstream file(class__name+".txt");
             string temp;
             int wtf = 0;
@@ -501,8 +503,9 @@ void menu() {
                cout << "You have no grade for class " << str << endl;
                continue;
            }
-           cout << "your grade for " << str << " is :" <<guy.ShowingGreades(guy.Username,str)
-            << endl;
+           else{
+
+           }
         }
         else if(operation == "tch" &&   Tlogin == true){
             cin  >> str >> sad;

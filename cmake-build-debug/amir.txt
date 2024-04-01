@@ -1,0 +1,8 @@
+student
++++shmir2414+++
+//math-10+12=22.5
+//math-12*2=11
+math
+15
+math
+12

@@ -7,13 +7,24 @@
 #include <iostream>
 using namespace std;
     class Users{
-    public:
+        friend  void menu();
+        friend int complete_profile();
+        friend int update();
+            protected:
         string Username;
         string firstname;
         string lastname;
         string phonenumber;
         string password;
+    public:
     ~Users();
+    string getusername();
+    void setusername(string username);
+    string getfirstname();
+    string getlastname();
+    void setfirstname(string First);
+    void serlastname(string last);
+    string getphonenumber();
 };
 class student : public Users{
 public:
@@ -37,7 +48,6 @@ public :
     int read(string username);
 };
 void wait();
-int login(string username,string role);
+int login(string username,string role,string password);
 void menu();
-string arraying(string NameofTheFile);
 #endif //YEKTA_USER_H

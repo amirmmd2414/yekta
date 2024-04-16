@@ -25,15 +25,15 @@ bool checkifisenglish(string word){
     return true;
 }
 int complete_profile(student user){
-    if(checkifisenglish(user.firstname)==false|| checkifisenglish(user.lastname) == false){
+    if(checkifisenglish(user.getfirstname())==false|| checkifisenglish(user.getlastname()) == false){
         cout << "Your first and last name should be in english format" << endl;
         return 275;
     }
     fstream file;
-    file.open(user.Username + ".txt",ios :: app);
-    file << "*"+user.firstname << endl
-    << user.lastname << endl <<
-    user.phonenumber << endl <<
+    file.open(user.getusername()+ ".txt",ios :: app);
+    file << "*"+user.getfirstname() << endl
+    << user.getlastname() << endl <<
+    user.getphonenumber() << endl <<
     "++true++" << endl;
     cout << "your profile is complete now " << endl;
     file.close();
@@ -41,15 +41,15 @@ int complete_profile(student user){
 
 }
 int complete_profile(teachers user){
-    if(checkifisenglish(user.firstname)==false|| checkifisenglish(user.lastname) == false){
+    if(checkifisenglish(user.getfirstname())==false|| checkifisenglish(user.getlastname()) == false){
         cout << "Your first and last name should be in english format" << endl;
         return 275;
     }
     fstream file;
-    file.open(user.Username + ".txt",ios :: app);
-    file << "*"+user.firstname << endl
-         << user.lastname << endl <<
-         user.phonenumber << endl <<
+    file.open(user.getusername() + ".txt",ios :: app);
+    file << "*"+user.getfirstname() << endl
+         << user.getlastname() << endl <<
+         user.getphonenumber() << endl <<
          "++true++" << endl;
     cout << "your profile is complete now " << endl;
     file.close();
@@ -57,7 +57,7 @@ int complete_profile(teachers user){
 
 }
 int update(student user){
-    ifstream file(user.Username + ".txt");
+    ifstream file(user.getusername() + ".txt");
     string temp[100];
     int j;
     string more;
@@ -69,18 +69,18 @@ int update(student user){
             break;
         }
          if(temp[i][0] == '*'){
-            temp[i] = "*"+user.firstname;
+            temp[i] = "*"+user.getfirstname();
             file >> more;
-            temp[i+1] = user.lastname;
+            temp[i+1] = user.getlastname();
             file >> more;
-            temp[i+2] = user.phonenumber;
+            temp[i+2] = user.getphonenumber();
             i+=2;
         }
         i++;
     j = i;
     }
     file.close();
-    ofstream myfile(user.Username+".txt");
+    ofstream myfile(user.getusername()+".txt");
     for(int i = 0;i<=j;i++){
         myfile << temp[i] << endl;
     }
@@ -88,7 +88,7 @@ int update(student user){
     return 1;
 }
 int update(teachers user){
-    ifstream file(user.Username + ".txt");
+    ifstream file(user.getusername() + ".txt");
     string temp[100];
     int j;
     string more;
@@ -100,18 +100,18 @@ int update(teachers user){
             break;
         }
         if(temp[i][0] == '*'){
-            temp[i] = "*"+user.firstname;
+            temp[i] = "*"+user.getfirstname();
             file >> more;
-            temp[i+1] = user.lastname;
+            temp[i+1] = user.getlastname();
             file >> more;
-            temp[i+2] = user.phonenumber;
+            temp[i+2] = user.getphonenumber();
             i+=2;
         }
         i++;
         j = i;
     }
     file.close();
-    ofstream myfile(user.Username+".txt");
+    ofstream myfile(user.getusername()+".txt");
     for(int i = 0;i<=j;i++){
         myfile << temp[i] << endl;
     }

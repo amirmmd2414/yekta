@@ -9,6 +9,27 @@
 #include <string>
 #include <shellapi.h>
 using namespace std;
+string Users :: getusername(){
+    return Username;
+}
+void Users :: setusername(string username){
+    Username = username;
+}
+string Users :: getfirstname(){
+    return firstname;
+}
+string Users :: getlastname(){
+    return lastname;
+}
+void Users :: setfirstname(string First){
+    firstname = First;
+}
+void Users :: serlastname(string last){
+    lastname = last;
+}
+string Users ::getphonenumber() {
+    return phonenumber;
+}
 Users::~Users(){
 
 }
@@ -316,15 +337,15 @@ void menu() {
                 cout << "this username does exist" << endl;
                 continue;
             }
-            else if(checkifisenglish(username) == false){
-                cout << "username should be in english" << endl;
-                continue;
-            }
+//            else if(checkifisenglish(username) == false){
+//                cout << "username should be in english" << endl;
+//                continue;
+//            }
             else if(passwordcheckk(password,username) == false){
                 cout << "Weak Password" << endl;
             }
             make_something(str,username,password);
-            cout << "new account hsa been created " << endl;
+            cout << "new account has been created " << endl;
         }
         else if (operation == "login") {
             cin >> str
@@ -444,14 +465,17 @@ void menu() {
                 continue;
             }
             else{
-                cout << "This username is a admin!!!" << endl;
+                cout << "This username is an admin!!!" << endl;
                 continue;
             }
         }
-        else if(operation == "show" && Alogin == true){
-
+        else if(operation == "show" && (Alogin == true || Slogin == true)){
             string temp;
             cin >> temp;
+            if(Slogin == true && log_in_username != temp) {
+                cout << "You can not see this profile" << endl;
+                continue;
+            }
             if(isprofilecomplete(temp) == false){
                 cout << "The profile for this user in not complete " << endl;
                 continue;
@@ -473,6 +497,7 @@ void menu() {
                 Admin.read(temp);
                 continue;
             }
+
         }
         else if(operation == "send" && Slogin == true){
             string class__name;
@@ -688,3 +713,5 @@ void menu() {
     }
     return ;
 }
+
+
